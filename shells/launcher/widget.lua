@@ -1,18 +1,13 @@
 local astal = require("astal")
-
 local Apps = astal.require("AstalApps")
-
 local App = require("astal.gtk3.app")
 local Anchor = require("astal.gtk3").Astal.WindowAnchor
 local Gdk = require("astal.gtk3").Gdk
-
-local Gtk = require("astal.gtk3").Gtk
-
-local Variable = astal.Variable
 local Widget = require("astal.gtk3.widget")
-
 local slice = require("lib").slice
 local map = require("lib").map
+
+local Variable = astal.Variable
 
 local MAX_ITEMS = 8
 
@@ -65,7 +60,7 @@ return function()
 
     return Widget.Window({
         name = "launcher",
-        anchor = Anchor.TOP + Anchor.BOTTOM,
+        -- anchor = Anchor.TOP + Anchor.BOTTOM,
         exclusivity = "IGNORE",
         keymode = "ON_DEMAND",
         application = App,
@@ -77,7 +72,7 @@ return function()
                 self:hide()
             end
         end,
-        Widget.Box({
+        Widget.CenterBox({
             Widget.EventBox({ expand = true, on_click = hide, width_request = 4000 }),
             Widget.Box({
                 hexpand = false,

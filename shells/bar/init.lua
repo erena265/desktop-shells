@@ -1,7 +1,7 @@
 local astal = require("astal")
 local App = require("astal.gtk3.app")
 
-local Bar = require("widgets.bar")
+local Bar = require("widget")
 local src = require("lib").src
 
 local scss = src("style.scss")

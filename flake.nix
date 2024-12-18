@@ -59,7 +59,7 @@
           bar = astal.lib.mkLuaPackage {
             inherit pkgs;
             name = "astal-bar"; # how to name the executable
-            src = ./.; # should contain init.lua
+            src = ./shells/bar; # should contain init.lua
 
             # add extra glib packages or binaries
             extraPackages = [
@@ -69,6 +69,15 @@
               astal.packages.${pkgs.system}.tray
               astal.packages.${pkgs.system}.hyprland
               astal.packages.${pkgs.system}.wireplumber
+            ];
+          };
+          launcher = astal.lib.mkLuaPackage {
+            inherit pkgs;
+            name = "astal-launcher";
+            src = ./shells/launcher;
+
+            extraPackages = [
+              astal.packages.${pkgs.system}.apps
             ];
           };
         }

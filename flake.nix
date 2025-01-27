@@ -69,6 +69,10 @@
               astal.packages.${pkgs.system}.tray
               astal.packages.${pkgs.system}.hyprland
               astal.packages.${pkgs.system}.wireplumber
+              pkgs.dart-sass
+              pkgs.adwaita-icon-theme
+              pkgs.hicolor-icon-theme
+              pkgs.gtk3
             ];
           };
           launcher = astal.lib.mkLuaPackage {

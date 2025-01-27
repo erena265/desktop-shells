@@ -169,6 +169,10 @@ end
 
 return function(gdkmonitor)
     local WindowAnchor = astal.require("Astal", "3.0").WindowAnchor
+    -- local Gdk = require("astal.gtk3").Gdk
+
+    -- local geometry = gdkmonitor.get_geometry()
+    -- local is_portrait = geometry.height > geometry.width
 
     return Widget.Window({
         class_name = "Bar",

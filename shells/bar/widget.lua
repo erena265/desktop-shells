@@ -177,15 +177,55 @@ local function Time(format)
     })
 end
 
-return function(gdkmonitor)
-    local Anchor = astal.require("Astal").WindowAnchor
+---@class GdkMonitor
+---@field get_geometry fun(): Geometry
+---@field get_model fun(): string
+---@field get_scale_factor fun(): number
+---@field get_refresh_rate fun(): number
+---@field is_primary fun(): boolean
 
+---@class Geometry
+---@field width number
+---@field height number
+---@field x number
+---@field y number
+
+---@class WindowAnchor
+---@field LEFT number
+---@field RIGHT number
+---@field TOP number
+---@field BOTTOM number
+
+---@param gdkmonitor GdkMonitor
+---@return number anchor
+local function GetAnchor(gdkmonitor)
+    ---@class WindowAnchor
+    local anchor = astal.require("Astal").WindowAnchor
+    local geometry = gdkmonitor:get_geometry()
+
+    print(string.format("gdkmonitor:get_model():  %s", gdkmonitor:get_model()))
+    print(string.format("gdkmonitor:get_geometry(): width = %d, height = %d, x = %d, y = %d", geometry.width,
+        geometry.height, geometry.x, geometry.y))
+    print(string.format("gdkmonitor:get_scale_factor(): %d", gdkmonitor:get_scale_factor()))
+    print(string.format("gdkmonitor:get_refresh_rate(): %d", gdkmonitor:get_refresh_rate()))
+    print(string.format("gdkmonitor:is_primary(): %s", gdkmonitor:is_primary()))
+    print("---")
+
+    if geometry.width > geometry.height then
+        return anchor.LEFT + anchor.BOTTOM + anchor.TOP
+    else
+        return anchor.TOP + anchor.LEFT + anchor.RIGHT
+    end
+end
+
+return function(gdkmonitor)
     return Widget.Window({
         class_name = "Bar",
         gdkmonitor = gdkmonitor,
-        anchor = Anchor.TOP + Anchor.LEFT + Anchor.RIGHT,
+        anchor = GetAnchor(gdkmonitor),
         exclusivity = "EXCLUSIVE",
         Widget.CenterBox({
+            vertical = true,
             Widget.Box({
                 halign = "START",
                 Workspaces(),
